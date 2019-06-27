@@ -1,4 +1,4 @@
-package com.josancamon19.bydrecsoccerapi.adapters
+package com.josancamon19.bydrecsoccerapi.adapters.lists.utils
 
 import androidx.recyclerview.widget.DiffUtil
 import com.josancamon19.bydrecsoccerapi.models.DataItem

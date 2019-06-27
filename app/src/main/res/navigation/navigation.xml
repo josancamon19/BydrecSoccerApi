@@ -3,6 +3,6 @@
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/navigation" app:startDestination="@id/matchesFragment">
 
-    <fragment android:id="@+id/matchesFragment" android:name="com.josancamon19.bydrecsoccerapi.ui.MainFragment"
+    <fragment android:id="@+id/matchesFragment" android:name="com.josancamon19.bydrecsoccerapi.ui.main.MainFragment"
               android:label="MatchesFragment"/>
 </navigation>

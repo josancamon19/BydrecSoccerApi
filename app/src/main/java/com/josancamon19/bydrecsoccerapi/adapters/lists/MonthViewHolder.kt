@@ -1,4 +1,4 @@
-package com.josancamon19.bydrecsoccerapi.adapters
+package com.josancamon19.bydrecsoccerapi.adapters.lists
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

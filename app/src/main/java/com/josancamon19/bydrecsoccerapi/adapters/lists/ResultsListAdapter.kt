@@ -1,4 +1,4 @@
-package com.josancamon19.bydrecsoccerapi.adapters
+package com.josancamon19.bydrecsoccerapi.adapters.lists
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,17 +6,15 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.josancamon19.bydrecsoccerapi.R
+import com.josancamon19.bydrecsoccerapi.adapters.lists.utils.DataItemDiffUtil
+import com.josancamon19.bydrecsoccerapi.adapters.lists.utils.getDate
 import com.josancamon19.bydrecsoccerapi.databinding.ListItemResultBinding
 import com.josancamon19.bydrecsoccerapi.models.DataItem
 import com.josancamon19.bydrecsoccerapi.models.Match
-import com.josancamon19.bydrecsoccerapi.models.Score
+import com.josancamon19.bydrecsoccerapi.models.match.Score
 import com.soywiz.klock.DateFormat
 import com.soywiz.klock.DateTimeTz
 import com.soywiz.klock.TimezoneOffset
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 private const val ITEM_VIEW_TYPE_HEADER = 0
 private const val ITEM_VIEW_TYPE_ITEM = 1
@@ -25,8 +23,12 @@ class ResultsListAdapter : ListAdapter<DataItem, RecyclerView.ViewHolder>(DataIt
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
-            ITEM_VIEW_TYPE_HEADER -> MonthViewHolder.from(parent)
-            ITEM_VIEW_TYPE_ITEM -> ResultsViewHolder.from(parent)
+            ITEM_VIEW_TYPE_HEADER -> MonthViewHolder.from(
+                parent
+            )
+            ITEM_VIEW_TYPE_ITEM -> ResultsViewHolder.from(
+                parent
+            )
             else -> throw  ClassCastException("Unknown ViewType $viewType")
         }
     }
@@ -57,7 +59,9 @@ class ResultsListAdapter : ListAdapter<DataItem, RecyclerView.ViewHolder>(DataIt
         companion object {
             fun from(parent: ViewGroup): ResultsViewHolder {
                 val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_result, parent, false)
-                return ResultsViewHolder(ListItemResultBinding.bind(view))
+                return ResultsViewHolder(
+                    ListItemResultBinding.bind(view)
+                )
             }
         }
 
@@ -73,7 +77,7 @@ class ResultsListAdapter : ListAdapter<DataItem, RecyclerView.ViewHolder>(DataIt
             val looserColor = ContextCompat.getColor(itemBinding.root.context, R.color.textColor)
             val winner = score.winner
             // If ? is removed it will throw a null pointer exception (Apparently a bug in the language)
-            winner?.let {
+            winner.let {
                 when (winner) {
                     "home" -> {
                         itemBinding.tvHomeScore.setTextColor(winnerColor)

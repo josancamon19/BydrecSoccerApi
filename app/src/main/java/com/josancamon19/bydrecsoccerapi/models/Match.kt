@@ -1,5 +1,10 @@
 package com.josancamon19.bydrecsoccerapi.models
 
+import com.josancamon19.bydrecsoccerapi.models.match.CompetitionStage
+import com.josancamon19.bydrecsoccerapi.models.match.Score
+import com.josancamon19.bydrecsoccerapi.models.match.Team
+import com.josancamon19.bydrecsoccerapi.models.match.Venue
+
 data class Match(
     val id: Int,
     val type: String,

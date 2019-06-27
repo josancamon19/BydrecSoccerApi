@@ -1,19 +1,17 @@
-package com.josancamon19.bydrecsoccerapi.ui
+package com.josancamon19.bydrecsoccerapi.ui.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
-import com.josancamon19.bydrecsoccerapi.adapters.MatchesPagerAdapter
+import com.josancamon19.bydrecsoccerapi.adapters.pager.MatchesPagerAdapter
 import com.josancamon19.bydrecsoccerapi.databinding.FragmentMainBinding
-import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import com.josancamon19.bydrecsoccerapi.R
+import dagger.android.support.DaggerFragment
 
 
-class MainFragment : Fragment() {
+class MainFragment : DaggerFragment() {
 
     private lateinit var binding: FragmentMainBinding
 

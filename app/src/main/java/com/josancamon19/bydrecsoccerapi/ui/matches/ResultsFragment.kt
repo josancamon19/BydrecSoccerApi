@@ -1,4 +1,4 @@
-package com.josancamon19.bydrecsoccerapi.ui
+package com.josancamon19.bydrecsoccerapi.ui.matches
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,23 +6,30 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout.VERTICAL
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.josancamon19.bydrecsoccerapi.R
-import com.josancamon19.bydrecsoccerapi.adapters.ResultsListAdapter
+import com.josancamon19.bydrecsoccerapi.adapters.lists.ResultsListAdapter
 import com.josancamon19.bydrecsoccerapi.databinding.FragmentResultsBinding
-import com.josancamon19.bydrecsoccerapi.viewmodels.MainActivityViewModel
-import com.josancamon19.bydrecsoccerapi.viewmodels.ResultsViewModel
-import timber.log.Timber
+import com.josancamon19.bydrecsoccerapi.ui.viewmodels.MainActivityViewModel
+import com.josancamon19.bydrecsoccerapi.ui.viewmodels.ResultsViewModel
+import com.josancamon19.bydrecsoccerapi.di.viewmodel.ViewModelFactory
+import dagger.android.support.DaggerFragment
+import javax.inject.Inject
 
-class ResultsFragment : Fragment() {
+class ResultsFragment : DaggerFragment() {
 
     private lateinit var binding: FragmentResultsBinding
-    private lateinit var viewModel: ResultsViewModel
+
     private lateinit var mainViewModel: MainActivityViewModel
-    private lateinit var fixturesAdapter: ResultsListAdapter
+
+    private lateinit var viewModel: ResultsViewModel
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
+    @Inject
+    lateinit var fixturesAdapter: ResultsListAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_results, container, false)
@@ -33,13 +40,12 @@ class ResultsFragment : Fragment() {
 
     private fun setupRecycler() {
         binding.resultsRecycler.setHasFixedSize(true)
-        fixturesAdapter = ResultsListAdapter()
         binding.resultsRecycler.adapter = fixturesAdapter
         binding.resultsRecycler.addItemDecoration(DividerItemDecoration(context, VERTICAL))
     }
 
     private fun setupViewModel() {
-        viewModel = ViewModelProviders.of(this).get(ResultsViewModel::class.java)
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(ResultsViewModel::class.java)
         viewModel.resultsWithHeaders.observe(this, Observer {
             fixturesAdapter.submitList(it)
         })

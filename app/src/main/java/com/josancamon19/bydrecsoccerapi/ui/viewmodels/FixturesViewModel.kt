@@ -1,9 +1,9 @@
-package com.josancamon19.bydrecsoccerapi.viewmodels
+package com.josancamon19.bydrecsoccerapi.ui.viewmodels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.josancamon19.bydrecsoccerapi.adapters.addHeadersToList
+import com.josancamon19.bydrecsoccerapi.adapters.lists.utils.addHeadersToList
 import com.josancamon19.bydrecsoccerapi.models.DataItem
 import com.josancamon19.bydrecsoccerapi.models.Match
 import com.josancamon19.bydrecsoccerapi.network.MatchesApi
@@ -12,8 +12,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import javax.inject.Inject
 
-class FixturesViewModel : ViewModel() {
+class FixturesViewModel @Inject constructor(private val matchesApi: MatchesApi): ViewModel() {
     private val jobViewModel: Job = Job()
     private val uiScope: CoroutineScope = CoroutineScope(Dispatchers.Main + jobViewModel)
 
@@ -34,11 +35,12 @@ class FixturesViewModel : ViewModel() {
 
     private fun loadFixtures() {
         uiScope.launch {
-            val fixtures = MatchesApi.retrofitService.getFixturesAsync()
+            val fixtures = matchesApi.getFixturesAsync()
             try {
                 val fixturesList = fixtures.await()
                 _fixtures.value = fixturesList
-                _fixturesWithHeaders.value = addHeadersToList(fixturesList)
+                _fixturesWithHeaders.value =
+                    addHeadersToList(fixturesList)
                 _pbVisibility.value = false
             } catch (e: Exception) {
                 Timber.e(e)
@@ -49,7 +51,8 @@ class FixturesViewModel : ViewModel() {
 
     fun filterByCompetition(competition:String){
         if (competition == "Display all"){
-            _fixturesWithHeaders.value  = addHeadersToList(_fixtures.value)
+            _fixturesWithHeaders.value  =
+                addHeadersToList(_fixtures.value)
             return
         }
         val matches = mutableListOf<Match>()

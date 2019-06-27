@@ -1,21 +1,22 @@
-package com.josancamon19.bydrecsoccerapi
+package com.josancamon19.bydrecsoccerapi.ui.main
 
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Html
 import android.view.View.VISIBLE
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.LENGTH_SHORT
+import com.josancamon19.bydrecsoccerapi.R
 import com.josancamon19.bydrecsoccerapi.databinding.ActivityMainBinding
-import com.josancamon19.bydrecsoccerapi.viewmodels.MainActivityViewModel
+import com.josancamon19.bydrecsoccerapi.ui.viewmodels.MainActivityViewModel
+import dagger.android.support.DaggerAppCompatActivity
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : DaggerAppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: MainActivityViewModel

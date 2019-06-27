@@ -1,20 +1,18 @@
-package com.josancamon19.bydrecsoccerapi.adapters
+package com.josancamon19.bydrecsoccerapi.adapters.lists
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.josancamon19.bydrecsoccerapi.R
+import com.josancamon19.bydrecsoccerapi.adapters.lists.utils.DataItemDiffUtil
+import com.josancamon19.bydrecsoccerapi.adapters.lists.utils.getDate
 import com.josancamon19.bydrecsoccerapi.databinding.ListItemFixtureBinding
 import com.josancamon19.bydrecsoccerapi.models.DataItem
 import com.josancamon19.bydrecsoccerapi.models.Match
 import com.soywiz.klock.DateFormat
 import com.soywiz.klock.DateTimeTz
 import com.soywiz.klock.TimezoneOffset
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 private const val ITEM_VIEW_TYPE_HEADER = 0
 private const val ITEM_VIEW_TYPE_ITEM = 1
@@ -24,8 +22,12 @@ class FixturesListAdapter : ListAdapter<DataItem, RecyclerView.ViewHolder>(DataI
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
-            ITEM_VIEW_TYPE_HEADER -> MonthViewHolder.from(parent)
-            ITEM_VIEW_TYPE_ITEM -> FixturesViewHolder.from(parent)
+            ITEM_VIEW_TYPE_HEADER -> MonthViewHolder.from(
+                parent
+            )
+            ITEM_VIEW_TYPE_ITEM -> FixturesViewHolder.from(
+                parent
+            )
             else -> throw  ClassCastException("Unknown ViewType $viewType")
         }
     }
@@ -57,7 +59,9 @@ class FixturesListAdapter : ListAdapter<DataItem, RecyclerView.ViewHolder>(DataI
         companion object {
             fun from(parent: ViewGroup): FixturesViewHolder {
                 val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_fixture, parent, false)
-                return FixturesViewHolder(ListItemFixtureBinding.bind(view))
+                return FixturesViewHolder(
+                    ListItemFixtureBinding.bind(view)
+                )
             }
         }
 

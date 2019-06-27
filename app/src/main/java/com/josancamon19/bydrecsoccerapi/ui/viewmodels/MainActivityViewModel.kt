@@ -1,10 +1,9 @@
-package com.josancamon19.bydrecsoccerapi.viewmodels
+package com.josancamon19.bydrecsoccerapi.ui.viewmodels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import timber.log.Timber
-
 
 class MainActivityViewModel : ViewModel() {
 
